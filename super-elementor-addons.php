@@ -47,3 +47,32 @@ function widget_scripts() {
 	wp_enqueue_script( 'slick-js', 'https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', ['jquery'], '1.01.01', true );
 }
 add_action('elementor/frontend/after_enqueue_scripts', 'widget_scripts');
+
+
+
+
+function plugin_name_enqueue_scripts() {
+    wp_enqueue_script(
+        'super-script', // Unique script handle
+        plugin_dir_url( __FILE__ ) . 'assets/js/super.js', // Path to your JavaScript file
+        array( 'jquery' ), // Dependencies (if any)
+        '1.0.0', // Version number (optional)
+        true // Load the script in the footer (optional)
+    );
+}
+add_action( 'wp_enqueue_scripts', 'plugin_name_enqueue_scripts' );
+
+
+
+
+// Enqueue JavaScript file
+function enqueue_custom_script() {
+    wp_enqueue_script(
+        'custom-script',
+        plugin_dir_url( __FILE__ ) . 'assets/js/super.js', // Path to your JavaScript file
+        array('jquery', 'elementor-editor'),
+        '1.0.0',
+        true
+    );
+}
+add_action('elementor/editor/after_enqueue_scripts', 'enqueue_custom_script');
